@@ -2,6 +2,7 @@ package com.workshop.todoapp.controller;
 
 import com.workshop.todoapp.model.Task;
 import com.workshop.todoapp.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task){
+    public ResponseEntity<Task> createTask(@Valid  @RequestBody Task task){
         Task createdTask = taskService.createTask(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task taskDetails){
+    public ResponseEntity<Task> updateTask(@Valid @PathVariable Long id, @RequestBody Task taskDetails){
         try{
             Task updateTask = taskService.updateTask(id, taskDetails);
             return ResponseEntity.ok(updateTask);
@@ -49,7 +50,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id){
+    public ResponseEntity<Void> deleteTask(@Valid @PathVariable Long id){
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
