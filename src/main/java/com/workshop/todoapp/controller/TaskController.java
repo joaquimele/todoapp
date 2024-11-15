@@ -3,7 +3,6 @@ package com.workshop.todoapp.controller;
 import com.workshop.todoapp.model.Task;
 import com.workshop.todoapp.service.TaskService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +13,15 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    public TaskService taskService;
+    private final TaskService taskService;
 
-    @Autowired
     public TaskController(TaskService taskService){
         this.taskService = taskService;
     }
 
     @GetMapping
     public List<Task> getAllTask(){
-        return taskService.getAllTask();
+        return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
