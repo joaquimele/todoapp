@@ -7,9 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Task {
 
     @Id
@@ -26,4 +28,11 @@ public class Task {
 
     @NotNull(message = "Completion status cannot be null")
     private Boolean completed;
+
+    public Task(long id, String title, String description, Boolean completed) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.completed = completed;
+    }
 }

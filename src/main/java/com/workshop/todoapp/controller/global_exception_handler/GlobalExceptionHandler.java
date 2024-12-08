@@ -1,5 +1,7 @@
-package com.workshop.todoapp.exceptions.handler;
+package com.workshop.todoapp.controller.global_exception_handler;
 
+import com.workshop.todoapp.exceptions.TaskNotFoundException;
+import com.workshop.todoapp.exceptions.TasksNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,5 +42,15 @@ public class GlobalExceptionHandler {
         errorResponse.put("details", exceptions.getMessage());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<String> handleTaskNotFoundException(TaskNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TasksNotFoundException.class)
+    public ResponseEntity<String> handleTaskNotFoundException(TasksNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }
